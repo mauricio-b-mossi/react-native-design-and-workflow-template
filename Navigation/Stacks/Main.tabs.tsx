@@ -1,26 +1,34 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Tickets from "../../pages/LoggedIn/Tickets";
-import Groups from "../../pages/LoggedIn/Groups";
-import Events from "../../pages/LoggedIn/Events";
+import Events from "../../pages/LoggedIn/Events/Events";
 import { Ionicons } from "@expo/vector-icons";
 import tw from "tailwind-react-native-classnames";
+import Header from "../../components/Header";
+import GroupStack from "./Group.stack";
+import { primaryColor } from "../../constants";
 
 const Tab = createBottomTabNavigator();
 
-const LoggedInNavigator = () => {
+const MainTabs = () => {
   return (
-    <>
-      <Tab.Navigator>
+    <SafeAreaView style={tw`flex-1`}>
+      <Tab.Navigator
+        screenOptions={{
+          headerTitle: () => <Header />,
+        }}
+      >
         <Tab.Screen
           name="Groups"
-          component={Groups}
+          component={GroupStack}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ focused }) => {
               if (focused == true)
-                return <Ionicons name="people-outline" size={24} color="blue" />;
+                return (
+                  <Ionicons name="people-outline" size={24} color={primaryColor} />
+                );
 
               return <Ionicons name="people-outline" size={24} color="black" />;
             },
@@ -31,10 +39,10 @@ const LoggedInNavigator = () => {
           name="Events"
           component={Events}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ focused }) => {
               if (focused == true)
-                return <Ionicons name="card-outline" size={24} color="blue" />;
+                return <Ionicons name="card-outline" size={24} color={primaryColor} />;
 
               return <Ionicons name="card-outline" size={24} color="black" />;
             },
@@ -45,19 +53,23 @@ const LoggedInNavigator = () => {
           name="Tickets"
           component={Tickets}
           options={{
-            headerShown: false,
+            headerShown: true,
             tabBarIcon: ({ focused }) => {
               if (focused == true)
-                return <Ionicons name="barcode-outline" size={24} color="blue" />;
+                return (
+                  <Ionicons name="barcode-outline" size={24} color={primaryColor} />
+                );
 
-              return <Ionicons name="barcode-outline" size={24} color="black" />;
+              return (
+                <Ionicons name="barcode-outline" size={24} color="black" />
+              );
             },
             tabBarShowLabel: false,
           }}
         />
       </Tab.Navigator>
-    </>
+    </SafeAreaView>
   );
 };
 
-export default LoggedInNavigator;
+export default MainTabs;

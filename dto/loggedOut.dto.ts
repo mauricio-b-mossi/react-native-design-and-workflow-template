@@ -17,8 +17,9 @@ export interface LoginUserInterface{
 
 export interface ReturnUserInterface{
     username: string;
-    email: string;
+    id: string;
 }
+
 
 const dispatch = useDispatch()
 
